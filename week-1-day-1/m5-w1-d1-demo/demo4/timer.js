@@ -4,8 +4,11 @@ class Timer extends React.Component {
     this.state = { seconds: 0 };
   }
 
+  // Adds 1 second to the timer using the interval of 1000
   tick() {
-    
+    this.setState(state => ({
+      seconds: state.seconds + 1
+    }));
   }
 
   componentDidMount() {
@@ -16,6 +19,7 @@ class Timer extends React.Component {
     clearInterval(this.interval);
   }
 
+  // Rendering without JSX 
   render() {
     return React.createElement(
       'div',

@@ -18,6 +18,7 @@ class Timer extends React.Component {
       clearInterval(this.interval);
     }
   
+    // Rendering with JSX
     render() {
       return (
         <div>
