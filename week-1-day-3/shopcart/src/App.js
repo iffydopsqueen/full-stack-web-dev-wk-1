@@ -44,19 +44,27 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header"> 
-          <h1>
-            <FontAwesomeIcon icon={faShoppingCart} /> My Shopping Cart
-          </h1>
-          <div className="product-list">
-            { products.map((product) => (
-              <div key={product.id} className="product-item">
-                <img src={product.image} alt={product.desc} />
-                <div>{product.desc}</div>
-                <div>Value: ${product.value}</div>
-              </div>
-            ))}
-          </div>
+        <h1>Shop to React</h1>
+        <div className="cart-icon">
+          <FontAwesomeIcon icon={faShoppingCart} /> 
+          <span> 0</span>
+          <span> items</span>
+        </div>
         </header>
+        <div className="product-list">
+          {products.map((product) => (
+            <div key={product.id} className="product-item">
+              <div className="product-description">{product.desc}</div>
+              <div className="product-content">
+                <img src={product.image} alt={product.desc} />
+                <div className="product-value">
+                  <input type="text" value={product.value} />
+                  <span> quantity</span>
+                </div>
+              </div>
+            </div>
+          ))}
+          </div>
       </div>
     );
   }
