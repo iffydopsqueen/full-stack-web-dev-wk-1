@@ -34,12 +34,24 @@ class App extends Component {
           desc: "Mens Wallet",
           value: 0
         }
-      ]
+      ],
+      totalQuantity: 0 // Initialize total quantity
     };
   }
 
-  render() {
+  componentDidMount() {
+    this.calculateTotalQuantity(); // Calculate total quantity on mount
+  }
+
+  // Function to calculate total quantity
+  calculateTotalQuantity = () => {
     const { products } = this.state;
+    const totalQuantity = products.reduce((total, product) => total + product.value, 0);
+    this.setState({ totalQuantity });
+  };
+
+  render() {
+    const { products, totalQuantity } = this.state;
 
     return (
       <div className="App">
@@ -47,7 +59,7 @@ class App extends Component {
         <h1>Shop to React</h1>
         <div className="cart-icon">
           <FontAwesomeIcon icon={faShoppingCart} /> 
-          <span> 0</span>
+          <span> {totalQuantity}</span>    {/* Display total quantity */}
           <span> items</span>
         </div>
         </header>
