@@ -35,7 +35,7 @@ class App extends Component {
           value: 0
         }
       ],
-      totalQuantity: 0 // Initialize total quantity
+      totalQuantity: 0 // Initialize total quantity - keep track of the total quantity
     };
   }
 
@@ -48,6 +48,24 @@ class App extends Component {
     const { products } = this.state;
     const totalQuantity = products.reduce((total, product) => total + product.value, 0);
     this.setState({ totalQuantity });
+  };
+
+  // Function to handle changes in the input field's value
+  handleValueChange = (productId, e) => {
+    const { value } = e.target;
+    const { products } = this.state;
+    
+    // Updates the state with the new value entered by the user
+    const updatedProducts = products.map(product => {
+      if (product.id === productId) {
+        return { ...product, value: parseInt(value) || 0 }; // Ensure value is a number
+      }
+      return product;
+    });
+
+    this.setState({ products: updatedProducts }, () => {
+      this.calculateTotalQuantity(); // Recalculate total quantity after value change
+    });
   };
 
   render() {
@@ -70,7 +88,12 @@ class App extends Component {
               <div className="product-content">
                 <img src={product.image} alt={product.desc} />
                 <div className="product-value">
-                  <input type="text" value={product.value} />
+                  <input
+                      type="text"
+                      value={product.value}
+                      onChange={(e) => this.handleValueChange(product.id, e)} />
+                      {/* The 'onChange' event listener is attached to the input field to call the 
+                      'handleValueChange' function whenever the input value changes */}
                   <span> quantity</span>
                 </div>
               </div>
